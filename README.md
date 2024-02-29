@@ -8,3 +8,5 @@ Unser Ziel ist es ein Minesweeper Spiel zu entwickeln, welches klar und einfach 
 - [User Story #2: Spielfeld interagieren](https://github.com/DeltaGamingCH/V320_MineSweeper/issues/7)
 - [User Story #3: Miene aufdecken](https://github.com/DeltaGamingCH/V320_MineSweeper/issues/8)
 - [User Story #4: Schwierigkeit Wählen](https://github.com/DeltaGamingCH/V320_MineSweeper/issues/9)
+- [User Story #5: Spielfeld Logik](https://github.com/DeltaGamingCH/V320_MineSweeper/issues/10)
+- [User Story #6: Spielzug Zurücksetzen](https://github.com/DeltaGamingCH/V320_MineSweeper/issues/11)
