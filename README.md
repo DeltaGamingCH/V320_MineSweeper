@@ -12,5 +12,5 @@ Unser Ziel ist es ein Minesweeper Spiel zu entwickeln, welches klar und einfach 
 - [User Story #6: Spielzug Zurücksetzen](https://github.com/DeltaGamingCH/V320_MineSweeper/issues/11)
 - [User Story #7: Sichtbarer Timer](https://github.com/DeltaGamingCH/V320_MineSweeper/issues/12)
 - [User Story #8: Flaggen setzen](https://github.com/DeltaGamingCH/V320_MineSweeper/issues/13)
-- [User Story #9: Minen Anzahl](https://github.com/DeltaGamingCH/V320_MineSweeper/issues/14)
-- [User Story #10: Neues Spiel starten](https://github.com/DeltaGamingCH/V320_MineSweeper/issues/15)
+- [User Story #9: Minen Anzahl](https://github.com/DeltaGamingCH/V320_MineSweeper/issues/15)
+- [User Story #10: Neues Spiel starten](https://github.com/DeltaGamingCH/V320_MineSweeper/issues/14)
