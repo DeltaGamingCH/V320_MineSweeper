@@ -9,6 +9,16 @@ Unser Ziel ist es ein Minesweeper Spiel zu entwickeln, welches klar und einfach 
 User Stories für den Minesweeper, sind im [Issues Tab](https://github.com/DeltaGamingCH/V320_MineSweeper/issues) ersichtlich.
 <br><br>
 
-## Funktionale Anforderungen
+## Anforderungen
 ### Undo-Funktion mit Memento-Pattern
 ### Schwierigkeitsgrade mit Strategy-Pattern
+### Schwierigkeiten
+#### Einfach
+- Feld: 8x8
+- Minen: 10
+#### Mittel
+- Feld: 16x16
+- Minen: 40
+#### Schwer
+- Feld: 30x16
+- Minen: 99
