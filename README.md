@@ -7,3 +7,7 @@ Unser Ziel ist es ein Minesweeper Spiel zu entwickeln, welches klar und einfach 
 
 ## User Stories
 User Stories für den Minesweeper, sind im [Issues Tab](https://github.com/DeltaGamingCH/V320_MineSweeper/issues) ersichtlich.
+
+## Funktionale Anforderungen
+### Undo-Funktion mit Memento-Pattern
+### Schwierigkeitsgrade mit Strategy-Pattern
