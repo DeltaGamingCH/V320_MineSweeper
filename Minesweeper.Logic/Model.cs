@@ -2,11 +2,11 @@
 {
     public class Model
     {
-        private Field[,] gameBoard;
+        private Board[,] gameBoard;
 
         public Model(int xSize, int ySize)
         {
-            this.gameBoard = new Field[xSize, ySize];
+            this.gameBoard = new Board[xSize, ySize];
         }
 
         public void DoTurn(string coordinate)

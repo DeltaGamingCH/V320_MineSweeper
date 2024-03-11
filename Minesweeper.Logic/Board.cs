@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Minesweeper.Logic
 {
-    internal class Field
+    internal class Board
     {
     }
 }

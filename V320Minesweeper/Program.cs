@@ -13,6 +13,8 @@ namespace V320Minesweeper
                 Console.Clear();
                 //Write Model to console
 
+                Difficulty difficulty = new Difficulty();
+
                 Console.WriteLine("Enter a coordinate.");
 
                 var coordinate = Console.ReadLine();
