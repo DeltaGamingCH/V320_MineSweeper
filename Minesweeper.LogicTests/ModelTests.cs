@@ -17,7 +17,7 @@ namespace Minesweeper.Logic.Tests
             Assert.Fail();
 
             //ARANGE
-            var model = new Model(16, 16);
+            var model = new GameModel(16, 16);
 
             //ACT
             model.DoTurn("B7");

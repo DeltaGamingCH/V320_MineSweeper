@@ -1,10 +1,11 @@
 ﻿namespace Minesweeper.Logic
 {
-    public class Model
+    public class GameModel
     {
+        private GameDifficulty difficulty;
         private Board[,] gameBoard;
 
-        public Model(int xSize, int ySize)
+        public GameModel(int xSize, int ySize)
         {
             this.gameBoard = new Board[xSize, ySize];
         }
