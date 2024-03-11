@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Minesweeper.Logic
 {
-    public interface IGameDifficulty
+    internal class DifficultyEasy : IGameDifficulty
     {
-        int MineCount { get; }
-        Size[] Size { get; }
-    }
+        public int MineCount { get; } = 99;
+        public Size[] Size { get; } = new Size[] { new Size(30, 16) };
+    };
 }
