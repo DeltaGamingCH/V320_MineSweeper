@@ -5,7 +5,7 @@ namespace V320Minesweeper
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] args) {
         
             var model = new GameModel(16, 16);
             while (true)
