@@ -3,27 +3,24 @@ using System.Xml.Schema;
 
 namespace V320Minesweeper
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            var model = new Model(16, 16);
-            while (true)
+            int rows = 10;
+            int columns = 10;
+            int mineCount = 20;
+
+            GameModel game = new GameModel(rows, columns, mineCount);
+
+            for (int i = 0; i < game.Fields.GetLength(0); i++)
             {
-                Console.Clear();
-                //Write Model to console
-
-                Difficulty difficulty = new Difficulty();
-
-                Console.WriteLine("Enter a coordinate.");
-
-                var coordinate = Console.ReadLine();
-
-                model.DoTurn(coordinate);
+                for (int j = 0; j < game.Fields.GetLength(1); j++)
+                {
+                    Console.Write(game.Fields[i, j].IsMine ? "M " : ". ");
+                }
+                Console.WriteLine();
             }
-
         }
-
-        
     }
 }
