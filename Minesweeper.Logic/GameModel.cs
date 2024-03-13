@@ -20,6 +20,8 @@ namespace Minesweeper.Logic
         public void DoTurn(string coordinate)
         {
 
+                    Fields[row, column].IsMine = true;
+                }
         }
     }
 }
