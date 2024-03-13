@@ -19,8 +19,8 @@ namespace Minesweeper.Logic
     }
 
         public void DoTurn(string coordinate)
-        { 
+        {
 
         }
-    } 
+    }
 }

@@ -19,9 +19,6 @@ namespace V320Minesweeper
 
                 model.DoTurn(coordinate);
             }
-
         }
-
-        
     }
 }
