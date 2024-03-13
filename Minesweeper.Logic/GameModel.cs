@@ -7,6 +7,8 @@ namespace Minesweeper.Logic
         private IGameDifficulty difficulty;
         private Board[,] gameBoard;
 
+        private Field[,] Fields;
+
         public GameModel() //<== In apprantencies (int xSize, int ySize)
         {
             // this.gameBoard = new Board[xSize, ySize];
