@@ -22,3 +22,7 @@ User Stories für den Minesweeper, sind im [Issues Tab](https://github.com/Delta
 #### Schwer
 - Feld: 30x16
 - Minen: 99
+
+## View, Model
+### Klasse GameModel beinhaltet die gesamte Logik. 
+### Die Main-Funktion soll die View darstellen. 

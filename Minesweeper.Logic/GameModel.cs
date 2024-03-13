@@ -15,8 +15,7 @@ namespace Minesweeper.Logic
             this.gameBoard = new Board[difficulty.BoardSize[0], difficulty.BoardSize[1]];
 
             this.size = Size[] Size { get; } = new Size[] { new Size(30, 16) };
-
-    }
+        }
 
         public void DoTurn(string coordinate)
         {
