@@ -9,7 +9,7 @@ namespace Minesweeper.Logic
 {
     internal class DifficultyEasy : IGameDifficulty
     {
-        public int MineCount { get; } = 99;
-        public Size[] Size { get; } = new Size[] { new Size(30, 16) };
+        public int MineCount { get; } = 10;
+        public Size[] Size { get; } = new Size[] { new Size(8,8) };
     };
 }

@@ -19,13 +19,10 @@ namespace Minesweeper.Logic
     }
 
         public void DoTurn(string coordinate)
-        { 
-                        row = random.Next(Fields.GetLength(0));
-                        column = random.Next(Fields.GetLength(1));
-                    } while (Fields[row, column].IsMine);
+        {
 
                     Fields[row, column].IsMine = true;
                 }
         }
-    } 
+    }
 }
