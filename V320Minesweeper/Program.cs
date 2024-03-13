@@ -6,20 +6,18 @@ namespace V320Minesweeper
     class Program
     {
         static void Main(string[] args)
-        {
-            int rows = 10;
-            int columns = 10;
-            int mineCount = 20;
-
-            GameModel game = new GameModel(rows, columns, mineCount);
-
-            for (int i = 0; i < game.Fields.GetLength(0); i++)
+        
+            var model = new GameModel(16, 16);
+            while (true)
             {
-                for (int j = 0; j < game.Fields.GetLength(1); j++)
-                {
-                    Console.Write(game.Fields[i, j].IsMine ? "M " : ". ");
-                }
-                Console.WriteLine();
+                Console.Clear();
+                //Write Model to console
+
+                Console.WriteLine("Enter a coordinate.");
+
+                var coordinate = Console.ReadLine();
+
+                model.DoTurn(coordinate);
             }
         }
     }

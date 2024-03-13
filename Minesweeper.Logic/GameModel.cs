@@ -1,37 +1,31 @@
-﻿namespace Minesweeper.Logic
+﻿using System.Drawing;
+
+namespace Minesweeper.Logic
 {
-        public class GameModel
+    public class GameModel
+    {
+        private IGameDifficulty difficulty;
+        private Board[,] gameBoard;
+
+        public GameModel() //<== In apprantencies (int xSize, int ySize)
         {
-            public Field[,] Fields;
+            // this.gameBoard = new Board[xSize, ySize];
 
-            public GameModel(int rows, int columns, int mineCount)
-            {
-                Fields = new Field[rows, columns];
-                for (int i = 0; i < rows; i++)
-                {
-                    for (int j = 0; j < columns; j++)
-                    {
-                        Fields[i, j] = new Field();
-                    }
-                }
+            this.difficulty = difficulty;
+            this.gameBoard = new Board[difficulty.BoardSize[0], difficulty.BoardSize[1]];
 
-                FillFieldsWithMines(mineCount);
-            }
+            this.size = Size[] Size { get; } = new Size[] { new Size(30, 16) };
 
-            public void FillFieldsWithMines(int mineCount)
-            {
-                Random random = new Random();
-                for (int i = 0; i < mineCount; i++)
-                {
-                    int row, column;
-                    do
-                    {
+    }
+
+        public void DoTurn(string coordinate)
+        { 
                         row = random.Next(Fields.GetLength(0));
                         column = random.Next(Fields.GetLength(1));
                     } while (Fields[row, column].IsMine);
 
                     Fields[row, column].IsMine = true;
                 }
-            }
         }
-    }
+    } 
+}
