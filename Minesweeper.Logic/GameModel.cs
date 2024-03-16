@@ -19,9 +19,8 @@ namespace Minesweeper.Logic
 
         public void DoTurn(string coordinate)
         {
-
-                    Fields[row, column].IsMine = true;
-                }
+            Fields[row, column].IsMine = true;
         }
+
     }
 }
