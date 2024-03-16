@@ -1,5 +1,6 @@
 ﻿using Minesweeper.Logic;
 using System.Xml.Schema;
+using Logic = Minesweeper.Logic;
 
 namespace V320Minesweeper
 {
@@ -18,8 +19,8 @@ namespace V320Minesweeper
             string selectDifficulty;
             while (true)
             {
-                Console.Write("Your selected difficulty: ")
-                selectDifficulty = Console.ReadLine().ToLower;
+                Console.Write("Your selected difficulty: ");
+                selectDifficulty = Console.ReadLine();
                 if (selectDifficulty == "easy" || selectDifficulty == "medium" || selectDifficulty == "hard")
                 {
                     break;
@@ -27,25 +28,28 @@ namespace V320Minesweeper
                     Console.WriteLine("Invalid Input. Please select one of the difficulties above.");
             }
 
-            Logic.IGameDifficulties difficulty;
+            Logic.IGameDifficulty difficulty;
             switch (selectDifficulty)
             {
                 case "easy":
-                    difficulty = new Logic.EasyDifficulty();
+                    difficulty = new Logic.DifficultyEasy();
                     break;
                 case "medium": 
-                    difficulty = new Logic.MediumDifficulty();
+                    difficulty = new Logic.DifficultyMedium();
                     break;
                 case "hard": 
-                    difficulty = new Logic.HardDifficulty();
+                    difficulty = new Logic.DifficultyHard();
                     break;
                 default:
                     Console.WriteLine("Invalid Selection. Defaulting to Easy Difficulty.");
-                    difficulty = new Logic.EasyDifficulty();
+                    difficulty = new Logic.DifficultyEasy();
                     break;
             }
 
             Logic.GameModel gameModel = new Logic.GameModel(difficulty);
+
+            Console.WriteLine(difficulty.MineCount);
+            Console.WriteLine(difficulty.Size[0]);
             /*
             while (true)
             {

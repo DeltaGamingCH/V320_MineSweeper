@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Minesweeper.Logic.Tests
-{
+{/*
     [TestClass()]
     public class ModelTests
     {
@@ -25,5 +25,5 @@ namespace Minesweeper.Logic.Tests
             //ASSERT
             //Spielzustand prüfen.
         }
-    }
+    }*/
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Minesweeper.Logic
 {
-    public interface IGameDifficulties
+    public interface IGameDifficulty
     {
         int MineCount { get; }
         Size[] Size { get; }

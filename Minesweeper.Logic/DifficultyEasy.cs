@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Minesweeper.Logic
 {
-    internal class DifficultyEasy : IGameDifficulty
+    public class DifficultyEasy : IGameDifficulty
     {
         public int MineCount { get; } = 10;
         public Size[] Size { get; } = new Size[] { new Size(8,8) };
