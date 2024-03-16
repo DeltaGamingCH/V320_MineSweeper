@@ -8,9 +8,9 @@ namespace Minesweeper.Logic
 {
     public class Field
     {
-        private bool isMine;
-        private bool isVisible;
-        private bool isMarked;
+        private bool isMine { get; set; }
+        private bool isVisible { get; set; }
+        private bool isMarked { get; set; }
 
         public Field()
         {

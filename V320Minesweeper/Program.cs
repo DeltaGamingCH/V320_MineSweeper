@@ -6,7 +6,8 @@ namespace V320Minesweeper
 {
     class Program
     {
-        static void Main(string[] args) {
+        static void Main(string[] args)
+        {
 
             // var model = new GameModel(16, 16);
 
@@ -24,7 +25,8 @@ namespace V320Minesweeper
                 if (selectDifficulty == "easy" || selectDifficulty == "medium" || selectDifficulty == "hard")
                 {
                     break;
-                } else
+                }
+                else
                     Console.WriteLine("Invalid Input. Please select one of the difficulties above.");
             }
 
@@ -34,10 +36,10 @@ namespace V320Minesweeper
                 case "easy":
                     difficulty = new Logic.DifficultyEasy();
                     break;
-                case "medium": 
+                case "medium":
                     difficulty = new Logic.DifficultyMedium();
                     break;
-                case "hard": 
+                case "hard":
                     difficulty = new Logic.DifficultyHard();
                     break;
                 default:
@@ -50,6 +52,48 @@ namespace V320Minesweeper
 
             Console.WriteLine(difficulty.MineCount);
             Console.WriteLine(difficulty.Size[0]);
+
+            /*TEMPORARY FIELDS TESTING*/
+
+            Field[,] Fields = new Field[8, 8];
+
+            InitializeFields(Fields);
+
+            DisplayFields(Fields);
+
+            static void InitializeFields(Field[,] Fields)
+            {
+                for (int i = 0; i < Fields.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Fields.GetLength(1); j++)
+                    {
+                        Fields[i, j] = new Field();
+                    }
+                }
+            }
+
+            static void DisplayFields(Field[,] Fields)
+            {
+                for (int i = 0;i < Fields.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Fields.GetLength(1); j++)
+                    {
+                        Fields[i, j] = new Field();
+                    }
+                }
+            }
+
+            static char GetDisplayChar(Field cell)
+            {
+
+            }
+
+            /*TEMPORARY TESTING MINE PLACEMENT*/
+            Fields[1, 1].IsMine = true;
+            Fields[3, 5].IsMine = true;
+
+
+
             /*
             while (true)
             {
