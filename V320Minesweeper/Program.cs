@@ -1,4 +1,5 @@
 ﻿using Minesweeper.Logic;
+using System;
 using System.Xml.Schema;
 using Logic = Minesweeper.Logic;
 
@@ -8,9 +9,6 @@ namespace V320Minesweeper
     {
         static void Main(string[] args)
         {
-
-            // var model = new GameModel(16, 16);
-
             Console.WriteLine("Welcome to MineSweeper!");
             Console.WriteLine("Please select a difficulty: ");
             Console.WriteLine(" - 'easy'");
@@ -53,64 +51,64 @@ namespace V320Minesweeper
             Console.WriteLine(difficulty.MineCount);
             Console.WriteLine(difficulty.Size[0]);
 
-            /*TEMPORARY FIELDS TESTING*/
-
+            /* TEMPORARY TESTING MINE PLACEMENT */
             Field[,] Fields = new Field[8, 8];
 
             InitializeFields(Fields);
 
             DisplayFields(Fields);
 
-            static void InitializeFields(Field[,] Fields)
+            Console.ReadLine();
+        }
+
+        static void InitializeFields(Field[,] Fields)
+        {
+            for (int i = 0; i < Fields.GetLength(0); i++)
             {
-                for (int i = 0; i < Fields.GetLength(0); i++)
+                for (int j = 0; j < Fields.GetLength(1); j++)
                 {
-                    for (int j = 0; j < Fields.GetLength(1); j++)
-                    {
-                        Fields[i, j] = new Field();
-                    }
+                    Fields[i, j] = new Field();
                 }
             }
 
-            static void DisplayFields(Field[,] Fields)
-            {
-                for (int i = 0;i < Fields.GetLength(0); i++)
-                {
-                    for (int j = 0; j < Fields.GetLength(1); j++)
-                    {
-                        Fields[i, j] = new Field();
-                    }
-                }
-            }
-
-            static char GetDisplayChar(Field cell)
-            {
-
-            }
-
-            /*TEMPORARY TESTING MINE PLACEMENT*/
+            // Temporary testing mine placement
             Fields[1, 1].IsMine = true;
             Fields[3, 5].IsMine = true;
+        }
 
-
-
-            /*
-            while (true)
+        static void DisplayFields(Field[,] Fields)
+        {
+            for (int i = 0; i < Fields.GetLength(0); i++)
             {
+                for (int j = 0; j < Fields.GetLength(1); j++)
+                {
+                    Console.Write(GetDisplayChar(Fields[i, j]) + " ");
+                }
+                Console.WriteLine();
+            }
+        }
 
-
-                
-
-                /*
-                Console.Clear();
-                //Write Model to console
-
-                Console.WriteLine("Enter a coordinate.");
-
-                var coordinate = Console.ReadLine();
-
-                model.DoTurn(coordinate);*/
-            /*}*/
+        static char GetDisplayChar(Field cell)
+        {
+            if (cell.IsVisible)
+            {
+                if (cell.IsMine)
+                {
+                    return '*';
+                }
+                else
+                {
+                    return ' ';
+                }
+            }
+            else if (cell.IsMarked)
+            {
+                return 'X'; // Note the corrected casing and semicolon
+            }
+            else
+            {
+                return '.';
+            }
         }
     }
 }
