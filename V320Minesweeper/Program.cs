@@ -241,13 +241,3 @@ namespace V320Minesweeper
         }
     }
 }
-            {
-                return 'X'; // Is invisible but marked
-            }
-            else
-            {
-                return '.'; // Is invisible and not marked
-            }
-        }
-    }
-}
