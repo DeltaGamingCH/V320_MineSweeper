@@ -59,6 +59,8 @@ namespace V320Minesweeper
 
             InitializeFields(Fields);
 
+            RandomMines(Fields, difficulty.MineCount);
+
             DisplayFields(Fields);
 
             static void RandomMines(Field[,] Fields, int mineCount)
