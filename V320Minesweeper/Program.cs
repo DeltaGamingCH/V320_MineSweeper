@@ -52,7 +52,7 @@ namespace V320Minesweeper
             Console.WriteLine(difficulty.Size[0]);
 
             /* TEMPORARY TESTING MINE PLACEMENT */
-            Field[,] Fields = new Field[8, 8];
+            Field[,] Fields = new Field[difficulty.Size[0].Width, difficulty.Size[0].Height];
 
             InitializeFields(Fields);
 
