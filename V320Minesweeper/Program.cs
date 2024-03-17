@@ -100,11 +100,6 @@ namespace V320Minesweeper
                 // Display the updated game board
                 DisplayFields(Fields);
 
-                foreach (var field in Fields)
-                {
-                    caretaker.PushState(field.SaveToMemento());
-                }
-
                 Console.Write("Enter your move (format: A1, B2, etc.) or type 'undo' to undo the last move: ");
                 string move = Console.ReadLine();
 
@@ -144,6 +139,10 @@ namespace V320Minesweeper
                 {
                     Console.WriteLine("Congratulations! You've cleared all the mines. You won!");
                     break;
+                }
+                foreach (var field in Fields)
+                {
+                    caretaker.PushState(field.SaveToMemento());
                 }
             }
 
