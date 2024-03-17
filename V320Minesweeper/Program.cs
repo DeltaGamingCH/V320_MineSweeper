@@ -170,8 +170,6 @@ namespace V320Minesweeper
                     return false;
                 }
             }
-
-            DisplayFields(Fields);
             return true;
         }
 
