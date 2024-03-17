@@ -91,7 +91,6 @@ namespace V320Minesweeper
                         Fields[row, column] = new Field();
                     }
                 }
-                //FIELD ALGORYTHM
             }
 
             FieldCaretaker caretaker = new FieldCaretaker();
