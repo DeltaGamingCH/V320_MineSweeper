@@ -59,9 +59,42 @@ namespace V320Minesweeper
 
             InitializeFields(Fields);
 
-            Fields[0, 0].IsMine = true; // Set the field at A1 as a mine
+            RandomMines(Fields);
 
             DisplayFields(Fields);
+
+            static void RandomMines(Field[,] Fields, int mineCount)
+            {
+                Random random = new Random();
+
+                int rows = Fields.GetLength(0);
+                int columns = Fields.GetLength(1);
+
+                HashSet<(int, int)> minePositions = new HashSet<(int, int)>();
+                while (minePositions.Count < mineCount)
+                {
+                    int row = random.Next(rows);
+                    int column = random.Next(columns);
+                    minePositions.Add((row, column));
+                }
+
+                foreach (var (row, column) in minePositions)
+                {
+                    Fields[row, column].IsMine = true;
+                }
+            }
+
+            static void InitializeFields(Field[,] Fields)
+            {
+                for (int row = 0; row < Fields.GetLength(0); row++)
+                {
+                    for (int column = 0; column < Fields.GetLength(1); column++)
+                    {
+                        Fields[row, column] = new Field();
+                    }
+                }
+                //FIELD ALGORYTHM
+            }
 
             while (true)
             {
@@ -108,39 +141,6 @@ namespace V320Minesweeper
 
             DisplayFields(Fields);
             return true;
-        }
-
-        static void RandomMines(Field[,] Fields, int mineCount)
-        {
-            Random random = new Random();
-
-            int rows = Fields.GetLength(0);
-            int columns = Fields.GetLength(1);
-
-            HashSet<(int, int)> minePositions = new HashSet<(int, int)>();
-            while (minePositions.Count < mineCount)
-            {
-                int row = random.Next(rows);
-                int column = random.Next(columns);
-                minePositions.Add((row, column));
-            }
-
-            foreach (var (row, column) in minePositions)
-            {
-                Fields[row, column].IsMine = true;
-            }
-        }
-
-        static void InitializeFields(Field[,] Fields)
-        {
-            for (int row = 0; row < Fields.GetLength(0); row++)
-            {
-                for (int column = 0; column < Fields.GetLength(1); column++)
-                {
-                    Fields[row, column] = new Field();
-                }
-            }
-            //FIELD ALGORYTHM
         }
 
         static void DisplayFields(Field[,] Fields)
