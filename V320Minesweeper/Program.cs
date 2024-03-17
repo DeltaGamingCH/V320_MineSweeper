@@ -145,34 +145,48 @@ namespace V320Minesweeper
                     caretaker.PushState(field.SaveToMemento());
                 }
             }
-
-            static bool IsGameWon(Field[,] Fields)
+        }
+        static bool IsGameWon(Field[,] Fields)
+        {
+            if (Fields == null || Fields.Length == 0)
             {
-                foreach (Field field in Fields)
-                {
-                    if (!field.IsMine && !field.IsVisible)
-                    {
-                        // There's still a non-mine field that's not revealed
-                        return false;
-                    }
-                }
-                return true;
+                return false;
             }
-            static void DisplayFields(Field[,] Fields)
+
+            int rows = Fields.GetLength(0);
+            int columns = Fields.GetLength(1);
+
+            if (rows <= 0 || columns <= 0)
             {
-                Console.Write("   |");
-                for (int column = 0; column < Fields.GetLength(1); column++)
+                return false;
+            }
+
+            foreach (Field field in Fields)
+            {
+                if (!field.IsMine && !field.IsVisible)
                 {
-                    if (column < 9)
-                    {
-                        Console.Write($" {column + 1} |");
-                    }
-                    else
-                    {
-                        Console.Write($" {column + 1}|");
-                    }
+                    // There's still a non-mine field that's not revealed
+                    return false;
                 }
-                Console.WriteLine();
+            }
+            return true;
+        }
+
+        static void DisplayFields(Field[,] Fields)
+        {
+            Console.Write("   |");
+            for (int column = 0; column < Fields.GetLength(1); column++)
+            {
+                if (column < 9)
+                {
+                    Console.Write($" {column + 1} |");
+                }
+                else
+                {
+                    Console.Write($" {column + 1}|");
+                }
+            }
+            Console.WriteLine();
 
                 Console.Write("----");
 
@@ -195,35 +209,44 @@ namespace V320Minesweeper
 
                     Console.Write("----");
 
-                    for (int column = 0; column < Fields.GetLength(1); column++)
-                    {
-                        Console.Write("----");
-                    }
-                    Console.WriteLine();
-                }
-
-                static char GetDisplayChar(Field cell)
+                for (int column = 0; column < Fields.GetLength(1); column++)
                 {
-                    if (cell.IsVisible)
-                    {
-                        if (cell.IsMine)
-                        {
-                            return '*'; // Is visible and a Mine
-                        }
-                        else
-                        {
-                            return ' '; // Is visible but not a mine
-                        }
-                    }
-                    else if (cell.IsMarked)
-                    {
-                        return 'X'; // Is invisible but marked
-                    }
-                    else
-                    {
-                        return '.'; // Is invisible and not marked
-                    }
+                    Console.Write("----");
                 }
+                Console.WriteLine();
+            }
+        }
+
+        static char GetDisplayChar(Field cell)
+        {
+            if (cell.IsVisible)
+            {
+                if (cell.IsMine)
+                {
+                    return '*'; // Is visible and a Mine
+                }
+                else
+                {
+                    return ' '; // Is visible but not a mine
+                }
+            }
+            else if (cell.IsMarked)
+            {
+                return 'X'; // Is invisible but marked
+            }
+            else
+            {
+                return '.'; // Is invisible and not marked
+            }
+        }
+    }
+}
+            {
+                return 'X'; // Is invisible but marked
+            }
+            else
+            {
+                return '.'; // Is invisible and not marked
             }
         }
     }
