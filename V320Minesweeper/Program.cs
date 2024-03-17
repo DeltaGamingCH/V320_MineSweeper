@@ -127,6 +127,19 @@ namespace V320Minesweeper
         }
         static bool IsGameWon(Field[,] Fields)
         {
+            if (Fields == null || Fields.Length == 0)
+            {
+                return false;
+            }
+
+            int rows = Fields.GetLength(0);
+            int columns = Fields.GetLength(1);
+
+            if (rows <= 0 || columns <= 0)
+            {
+                return false;
+            }
+
             foreach (Field field in Fields)
             {
                 if (!field.IsMine && !field.IsVisible)
@@ -135,8 +148,6 @@ namespace V320Minesweeper
                     return false;
                 }
             }
-
-            Fields[0, 0].IsMine = true; // Set the field at A1 as a mine
 
             DisplayFields(Fields);
             return true;
@@ -185,17 +196,6 @@ namespace V320Minesweeper
                 }
                 Console.WriteLine();
             }
-
-
-            /* EXISTING FIELD DISPLAY LOGIC
-            for (int i = 0; i < Fields.GetLength(0); i++)
-            {
-                for (int j = 0; j < Fields.GetLength(1); j++)
-                {
-                    Console.Write(GetDisplayChar(Fields[i, j]) + " ");
-                }
-                Console.WriteLine();
-            }*/
         }
 
         static char GetDisplayChar(Field cell)
