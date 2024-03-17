@@ -39,30 +39,15 @@ namespace Minesweeper.Logic
 
         public Memento SaveToMemento()
         {
-            // Create a new Memento with a copy of your field's current state.
             return new Memento(isMine, isVisible, isMarked);
         }
 
         public void RestoreFromMemento(Memento memento)
         {
-            // Restore your field's state from the given Memento.
             isMine = memento.IsMine;
             isVisible = memento.IsVisible;
             isMarked = memento.IsMarked;
         }
-    }
 
-    public class Memento
-    {
-        public bool IsMine { get; private set; }
-        public bool IsVisible { get; private set; }
-        public bool IsMarked { get; private set; }
-
-        public Memento(bool isMine, bool isVisible, bool isMarked)
-        {
-            IsMine = isMine;
-            IsVisible = isVisible;
-            IsMarked = isMarked;
-        }
     }
-}
+  }
