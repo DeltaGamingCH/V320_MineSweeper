@@ -61,8 +61,6 @@ namespace V320Minesweeper
 
             RandomMines(Fields, difficulty.MineCount);
 
-            DisplayFields(Fields);
-
             static void RandomMines(Field[,] Fields, int mineCount)
             {
                 Random random = new Random();
@@ -95,10 +93,37 @@ namespace V320Minesweeper
                 }
             }
 
+            FieldCaretaker caretaker = new FieldCaretaker();
+
             while (true)
             {
-                Console.Write("Enter your move (format: A1, B2, etc.): ");
+                // Display the updated game board
+                DisplayFields(Fields);
+
+                foreach (var field in Fields)
+                {
+                    caretaker.PushState(field.SaveToMemento());
+                }
+
+                Console.Write("Enter your move (format: A1, B2, etc.) or type 'undo' to undo the last move: ");
                 string move = Console.ReadLine();
+
+                // Check if the user wants to undo the last move
+                if (move.ToLower() == "undo")
+                {
+                    for (int i = 0; i < Fields.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < Fields.GetLength(1); j++)
+                        {
+                            Memento previousState = caretaker.Pop();
+                            if (previousState != null)
+                            {
+                                Fields[i, j].RestoreFromMemento(previousState);
+                            }
+                        }
+                    }
+                    continue; // Skip the rest of the loop and start the next iteration
+                }
 
                 // Convert the move into coordinates
                 int row = move[0] - 'A';
@@ -120,9 +145,6 @@ namespace V320Minesweeper
                     Console.WriteLine("Congratulations! You've cleared all the mines. You won!");
                     break;
                 }
-
-                // Display the updated game board
-                DisplayFields(Fields);
             }
         }
         static bool IsGameWon(Field[,] Fields)
@@ -169,26 +191,26 @@ namespace V320Minesweeper
             }
             Console.WriteLine();
 
-            Console.Write("----");
-
-            for (int column = 0; column < Fields.GetLength(1); column++)
-            {
                 Console.Write("----");
-            }
 
-            Console.WriteLine();
-
-            for (int row = 0; row < Fields.GetLength(0); row++)
-            {
-                Console.Write($" {(char)('A' + row)} |");
                 for (int column = 0; column < Fields.GetLength(1); column++)
                 {
-                    char displayChar = GetDisplayChar(Fields[row, column]);
-                    Console.Write($" {displayChar} |");
+                    Console.Write("----");
                 }
+
                 Console.WriteLine();
 
-                Console.Write("----");
+                for (int row = 0; row < Fields.GetLength(0); row++)
+                {
+                    Console.Write($" {(char)('A' + row)} |");
+                    for (int column = 0; column < Fields.GetLength(1); column++)
+                    {
+                        char displayChar = GetDisplayChar(Fields[row, column]);
+                        Console.Write($" {displayChar} |");
+                    }
+                    Console.WriteLine();
+
+                    Console.Write("----");
 
                 for (int column = 0; column < Fields.GetLength(1); column++)
                 {
@@ -212,6 +234,16 @@ namespace V320Minesweeper
                 }
             }
             else if (cell.IsMarked)
+            {
+                return 'X'; // Is invisible but marked
+            }
+            else
+            {
+                return '.'; // Is invisible and not marked
+            }
+        }
+    }
+}
             {
                 return 'X'; // Is invisible but marked
             }

@@ -1,4 +1,4 @@
-﻿/* using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Minesweeper.Logic
 {
-    internal class FieldCaretaker
+    public class FieldCaretaker
     {
         private List<Memento> states = new List<Memento>();
 
@@ -27,4 +27,3 @@ namespace Minesweeper.Logic
         }
     }
 }
-*/
