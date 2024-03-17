@@ -93,7 +93,6 @@ namespace V320Minesweeper
                         Fields[row, column] = new Field();
                     }
                 }
-                //FIELD ALGORYTHM
             }
 
             while (true)
