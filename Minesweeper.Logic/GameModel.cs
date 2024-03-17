@@ -28,6 +28,5 @@ namespace Minesweeper.Logic
         {
             Fields[row, column].IsMine = true;
         }*/
-
     }
 }
