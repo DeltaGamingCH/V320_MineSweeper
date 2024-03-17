@@ -1,5 +1,6 @@
 ﻿using Minesweeper.Logic;
 using System;
+using System.Data;
 using System.Xml.Schema;
 using Logic = Minesweeper.Logic;
 
@@ -95,30 +96,7 @@ namespace V320Minesweeper
 
             FieldCaretaker caretaker = new FieldCaretaker();
 
-            static void AdjacentMines(Field[,] Fields, int row, int column)
-            {
-                int count = 0;
-                int rows = Fields.GetLength(0);
-                int columns = Fields.GetLength(1);
-
-                int[] rowOffsets = { -1, -1, -1, 0, 0, 1, 1, 1 };
-                int[] colOffsets = { -1, 0, 1, -1, 1, -1, 0, 1 };
-
-                for (int i = 0; i < rowOffsets.Length; i++)
-                {
-                    int newRow = row + rowOffsets[i]; 
-                    int newColumn = column + colOffsets[i];
-
-                    if (newRow >= 0 && newRow < rows && newColumn >= 0 && newColumn < columns)
-                    {
-                        if (Fields[newRow, newColumn].IsMine)
-                        {
-                            count++;
-                        }
-                    }
-                }
-            }
-
+            
 
             while (true)
             {
@@ -234,7 +212,7 @@ namespace V320Minesweeper
                     Console.Write($" {(char)('A' + row)} |");
                     for (int column = 0; column < Fields.GetLength(1); column++)
                     {
-                        char displayChar = GetDisplayChar(Fields[row, column]);
+                        char displayChar = GetDisplayChar(Fields, row, column);
                         Console.Write($" {displayChar} |");
                     }
                     Console.WriteLine();
@@ -249,8 +227,9 @@ namespace V320Minesweeper
             }
         }
 
-        static char GetDisplayChar(Field cell)
+        static char GetDisplayChar(Field[,] Fields, int row, int column)
         {
+            Field cell = Fields[row, column];
             if (cell.IsVisible)
             {
                 if (cell.IsMine)
@@ -259,7 +238,15 @@ namespace V320Minesweeper
                 }
                 else
                 {
-                    return ' '; // Is visible but not a mine
+                    int adjacentMines = AdjacentMines(Fields, row, column); //Calculate adjacent mines
+                    if (adjacentMines > 0)
+                    {
+                        return char.Parse(adjacentMines.ToString());
+                    }
+                    else
+                    {
+                        return ' '; // Is visible but not a mine
+                    }
                 }
             }
             else if (cell.IsMarked)
@@ -271,5 +258,31 @@ namespace V320Minesweeper
                 return '.'; // Is invisible and not marked
             }
         }
+
+        static int AdjacentMines(Field[,] Fields, int row, int column)
+        {
+            int count = 0;
+            int rows = Fields.GetLength(0);
+            int columns = Fields.GetLength(1);
+
+            int[] rowOffsets = { -1, -1, -1, 0, 0, 1, 1, 1 };
+            int[] colOffsets = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+            for (int i = 0; i < rowOffsets.Length; i++)
+            {
+                int newRow = row + rowOffsets[i];
+                int newColumn = column + colOffsets[i];
+
+                if (newRow >= 0 && newRow < rows && newColumn >= 0 && newColumn < columns)
+                {
+                    if (Fields[newRow, newColumn].IsMine)
+                    {
+                        count++;
+                    }
+                }
+            }
+            return count;
+        }
+
     }
 }
