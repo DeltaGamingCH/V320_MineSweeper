@@ -70,10 +70,6 @@ namespace V320Minesweeper
                     Fields[i, j] = new Field();
                 }
             }
-
-            // Temporary testing mine placement
-            Fields[1, 1].IsMine = true;
-            Fields[3, 5].IsMine = true;
         }
 
         static void DisplayFields(Field[,] Fields)
