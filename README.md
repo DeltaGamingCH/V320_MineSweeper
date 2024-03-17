@@ -10,6 +10,7 @@ User Stories für den Minesweeper, sind im [Issues Tab](https://github.com/Delta
 <br><br>
 
 ## Anforderungen
+*(Nicht zur Bewertung)*
 ### Undo-Funktion mit Memento-Pattern
 ### Schwierigkeitsgrade mit Strategy-Pattern
 ### Schwierigkeiten
@@ -24,5 +25,11 @@ User Stories für den Minesweeper, sind im [Issues Tab](https://github.com/Delta
 - Minen: 99
 
 ## View, Model
+*(Nicht zur Bewertung)*
 ### Klasse GameModel beinhaltet die gesamte Logik. 
 ### Die Main-Funktion soll die View darstellen. 
+
+## Reflektion
+### Wie haben Sie das Lösens des Auftrags erlebt?
+### Inwieweit haben Ihnen die vermittelten Methoden bei der Lösung des Auftrags geholfen? Wo haben Sie die Methoden behindert? Begründen Sie. 
+### Was nehmen Sie aus dem Modul mit für die Zukunft
