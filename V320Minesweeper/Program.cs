@@ -56,9 +56,53 @@ namespace V320Minesweeper
 
             InitializeFields(Fields);
 
+            Fields[0, 0].IsMine = true; // Set the field at A1 as a mine
+
             DisplayFields(Fields);
 
-            Console.ReadLine();
+            while (true)
+            {
+                Console.Write("Enter your move (format: A1, B2, etc.): ");
+                string move = Console.ReadLine();
+
+                // Convert the move into coordinates
+                int row = move[0] - 'A';
+                int column = int.Parse(move.Substring(1)) - 1;
+
+                // Check if the selected field is a mine
+                if (Fields[row, column].IsMine)
+                {
+                    Console.WriteLine("Boom! You hit a mine. Game over.");
+                    break;
+                }
+
+                // Reveal the selected field
+                Fields[row, column].IsVisible = true;
+
+                // Check if the game is won (i.e., all non-mine fields are revealed)
+                if (IsGameWon(Fields))
+                {
+                    Console.WriteLine("Congratulations! You've cleared all the mines. You won!");
+                    break;
+                }
+
+                // Display the updated game board
+                DisplayFields(Fields);
+            }
+        }
+        static bool IsGameWon(Field[,] Fields)
+        {
+            foreach (Field field in Fields)
+            {
+                if (!field.IsMine && !field.IsVisible)
+                {
+                    // There's still a non-mine field that's not revealed
+                    return false;
+                }
+            }
+
+            // All non-mine fields are revealed
+            return true;
         }
 
         static void InitializeFields(Field[,] Fields)
