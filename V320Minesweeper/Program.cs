@@ -78,6 +78,49 @@ namespace V320Minesweeper
 
         static void DisplayFields(Field[,] Fields)
         {
+            Console.Write("   |");
+            for (int column = 0; column < Fields.GetLength(1); column++)
+            {
+                if (column < 9)
+                {
+                    Console.Write($" {column + 1} |");
+                } else
+                {
+                    Console.Write($" {column + 1}|");
+                }
+            }
+            Console.WriteLine();
+
+            Console.Write("----");
+
+            for (int column = 0; column < Fields.GetLength(1); column++)
+            {
+                Console.Write("----");
+            }
+
+            Console.WriteLine();
+
+            for (int row = 0; row < Fields.GetLength(0); row++)
+            {
+                Console.Write($" {(char)('A' + row)} |");
+                for (int column = 0; column < Fields.GetLength(1); column++)
+                {
+                    char displayChar = GetDisplayChar(Fields[row, column]);
+                    Console.Write($" {displayChar} |");
+                }
+                Console.WriteLine();
+
+                Console.Write("----");
+
+                for (int column = 0; column < Fields.GetLength(1); column++)
+                {
+                    Console.Write("----");
+                }
+                Console.WriteLine();
+            }
+
+
+            /* EXISTING FIELD DISPLAY LOGIC
             for (int i = 0; i < Fields.GetLength(0); i++)
             {
                 for (int j = 0; j < Fields.GetLength(1); j++)
@@ -85,7 +128,7 @@ namespace V320Minesweeper
                     Console.Write(GetDisplayChar(Fields[i, j]) + " ");
                 }
                 Console.WriteLine();
-            }
+            }*/
         }
 
         static char GetDisplayChar(Field cell)
@@ -103,7 +146,7 @@ namespace V320Minesweeper
             }
             else if (cell.IsMarked)
             {
-                return 'X'; // Note the corrected casing and semicolon
+                return 'X';
             }
             else
             {
