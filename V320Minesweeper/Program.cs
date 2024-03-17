@@ -133,20 +133,20 @@ namespace V320Minesweeper
             {
                 if (cell.IsMine)
                 {
-                    return '*';
+                    return '*'; // Is visible and a Mine
                 }
                 else
                 {
-                    return ' ';
+                    return ' '; // Is visible but not a mine
                 }
             }
             else if (cell.IsMarked)
             {
-                return 'X';
+                return 'X'; // Is invisible but marked
             }
             else
             {
-                return '.';
+                return '.'; // Is invisible and not marked
             }
         }
     }
