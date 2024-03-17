@@ -33,12 +33,15 @@ namespace V320Minesweeper
             {
                 case "easy":
                     difficulty = new Logic.DifficultyEasy();
+                    Console.WriteLine($"You are playing on \x1b[32mEasy\x1b[0m difficulty.");
                     break;
                 case "medium":
                     difficulty = new Logic.DifficultyMedium();
+                    Console.WriteLine($"You are playing on \x1b[33mMedium\x1b[0m difficulty.");
                     break;
                 case "hard":
                     difficulty = new Logic.DifficultyHard();
+                    Console.WriteLine($"You are playing on \x1b[31mHard\x1b[0m difficulty.");
                     break;
                 default:
                     Console.WriteLine("Invalid Selection. Defaulting to Easy Difficulty.");
@@ -56,20 +59,44 @@ namespace V320Minesweeper
 
             InitializeFields(Fields);
 
+            RandomMines(Fields, difficulty.MineCount);
+
             DisplayFields(Fields);
 
             Console.ReadLine();
         }
 
+        static void RandomMines(Field[,] Fields, int mineCount)
+        {
+            Random random = new Random();
+
+            int rows = Fields.GetLength(0);
+            int columns = Fields.GetLength(1);
+
+            HashSet<(int, int)> minePositions = new HashSet<(int, int)>();
+            while (minePositions.Count < mineCount)
+            {
+                int row = random.Next(rows);
+                int column = random.Next(columns);
+                minePositions.Add((row, column));
+            }
+
+            foreach (var (row, column) in minePositions)
+            {
+                Fields[row, column].IsMine = true;
+            }
+        }
+
         static void InitializeFields(Field[,] Fields)
         {
-            for (int i = 0; i < Fields.GetLength(0); i++)
+            for (int row = 0; row < Fields.GetLength(0); row++)
             {
-                for (int j = 0; j < Fields.GetLength(1); j++)
+                for (int column = 0; column < Fields.GetLength(1); column++)
                 {
-                    Fields[i, j] = new Field();
+                    Fields[row, column] = new Field();
                 }
             }
+            //FIELD ALGORYTHM
         }
 
         static void DisplayFields(Field[,] Fields)
