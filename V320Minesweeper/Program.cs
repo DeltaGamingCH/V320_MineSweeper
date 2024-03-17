@@ -10,16 +10,16 @@ namespace V320Minesweeper
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to MineSweeper!");
-            Console.WriteLine("Please select a difficulty: ");
-            Console.WriteLine(" - 'easy'");
-            Console.WriteLine(" - 'medium'");
-            Console.WriteLine(" - 'hard'");
+            Console.WriteLine("Select your difficulty: ");
+            Console.WriteLine($"- \x1b[32mEasy\x1b[0m");
+            Console.WriteLine($"- \x1b[33mMedium\x1b[0m");
+            Console.WriteLine($"- \x1b[31mHard\x1b[0m");
 
             string selectDifficulty;
             while (true)
             {
                 Console.Write("Your selected difficulty: ");
-                selectDifficulty = Console.ReadLine();
+                selectDifficulty = Console.ReadLine().ToLower();
                 if (selectDifficulty == "easy" || selectDifficulty == "medium" || selectDifficulty == "hard")
                 {
                     break;
