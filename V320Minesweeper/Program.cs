@@ -95,6 +95,31 @@ namespace V320Minesweeper
 
             FieldCaretaker caretaker = new FieldCaretaker();
 
+            static void AdjacentMines(Field[,] Fields, int row, int column)
+            {
+                int count = 0;
+                int rows = Fields.GetLength(0);
+                int columns = Fields.GetLength(1);
+
+                int[] rowOffsets = { -1, -1, -1, 0, 0, 1, 1, 1 };
+                int[] colOffsets = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+                for (int i = 0; i < rowOffsets.Length; i++)
+                {
+                    int newRow = row + rowOffsets[i]; 
+                    int newColumn = column + colOffsets[i];
+
+                    if (newRow >= 0 && newRow < rows && newColumn >= 0 && newColumn < columns)
+                    {
+                        if (Fields[newRow, newColumn].IsMine)
+                        {
+                            count++;
+                        }
+                    }
+                }
+            }
+
+
             while (true)
             {
                 // Display the updated game board
@@ -128,6 +153,12 @@ namespace V320Minesweeper
                 // Convert the move into coordinates
                 int row = move[0] - 'A';
                 int column = int.Parse(move.Substring(1)) - 1;
+
+                if (row < 0 || row >= Fields.GetLength(0) || column < 0 || column >= Fields.GetLength(1))
+                {
+                    Console.WriteLine("Invalid move. Please enter valid coordinates.");
+                    continue;
+                }
 
                 // Check if the selected field is a mine
                 if (Fields[row, column].IsMine)
@@ -170,6 +201,7 @@ namespace V320Minesweeper
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -232,16 +264,6 @@ namespace V320Minesweeper
                 }
             }
             else if (cell.IsMarked)
-            {
-                return 'X'; // Is invisible but marked
-            }
-            else
-            {
-                return '.'; // Is invisible and not marked
-            }
-        }
-    }
-}
             {
                 return 'X'; // Is invisible but marked
             }
