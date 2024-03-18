@@ -125,8 +125,15 @@ namespace V320Minesweeper
                 }
 
                 // Convert the move into coordinates
+
+                if (move.Length < 2 || !char.IsLetter(move[0]) || !int.TryParse(move.Substring(1), out int column))
+                {
+                    Console.WriteLine("Invalid move. Please enter a valid coordinate.");
+                    continue;
+                }
+
                 int row = move[0] - 'a';
-                int column = int.Parse(move.Substring(1)) - 1;
+                column = int.Parse(move.Substring(1)) - 1;
 
                 if (row < 0 || row >= Fields.GetLength(0) || column < 0 || column >= Fields.GetLength(1))
                 {

@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Minesweeper.Logic;
 using System;
 using System.Collections.Generic;
@@ -7,23 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Minesweeper.Logic.Tests
-{/*
+{
     [TestClass()]
     public class ModelTests
     {
         [TestMethod()]
-        public void DoTurnTest()
-        {
+        public void AllMinesVisibleTest()
+        {/*
             Assert.Fail();
 
             //ARANGE
-            var model = new GameModel(16, 16);
+            GameModel.Size
 
             //ACT
-            model.DoTurn("B7");
+            Program.DisplayField();
 
             //ASSERT
-            //Spielzustand prüfen.
+            //Spielzustand prüfen.*/
         }
-    }*/
+    }
 }
