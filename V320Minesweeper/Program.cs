@@ -96,8 +96,6 @@ namespace V320Minesweeper
 
             FieldCaretaker caretaker = new FieldCaretaker();
 
-            
-
             while (true)
             {
                 // Display the updated game board
@@ -109,18 +107,21 @@ namespace V320Minesweeper
                 // Check if the user wants to undo the last move
                 if (move.ToLower() == "undo")
                 {
-                    for (int i = 0; i < Fields.GetLength(0); i++)
+                    for (int i = Fields.Length - 1; i >= 0; i--)
                     {
-                        for (int j = 0; j < Fields.GetLength(1); j++)
+                        Memento previousState = caretaker.Pop();
+                        if (previousState != null)
                         {
-                            Memento previousState = caretaker.Pop();
-                            if (previousState != null)
-                            {
-                                Fields[i, j].RestoreFromMemento(previousState);
-                            }
+                            Fields[i / Fields.GetLength(0), i % Fields.GetLength(1)].RestoreFromMemento(previousState);
                         }
                     }
                     continue; // Skip the rest of the loop and start the next iteration
+                }
+
+                // Save the current state before making a move
+                for (int i = 0; i < Fields.Length; i++)
+                {
+                    caretaker.PushState(Fields[i / Fields.GetLength(0), i % Fields.GetLength(1)].SaveToMemento());
                 }
 
                 // Convert the move into coordinates
@@ -149,11 +150,9 @@ namespace V320Minesweeper
                     Console.WriteLine("Congratulations! You've cleared all the mines. You won!");
                     break;
                 }
-                foreach (var field in Fields)
-                {
-                    caretaker.PushState(field.SaveToMemento());
-                }
             }
+
+
         }
         static bool IsGameWon(Field[,] Fields)
         {
