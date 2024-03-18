@@ -1,6 +1,7 @@
 ﻿using Minesweeper.Logic;
 using System;
 using System.Data;
+using System.Data.Common;
 using System.Xml.Schema;
 using Logic = Minesweeper.Logic;
 
@@ -52,8 +53,7 @@ namespace V320Minesweeper
 
             Logic.GameModel gameModel = new Logic.GameModel(difficulty);
 
-            Console.WriteLine(difficulty.MineCount);
-            Console.WriteLine(difficulty.Size[0]);
+            Console.WriteLine();
 
             /* TEMPORARY TESTING MINE PLACEMENT */
             Field[,] Fields = new Field[difficulty.Size[0].Width, difficulty.Size[0].Height];
@@ -145,6 +145,11 @@ namespace V320Minesweeper
                 if (Fields[row, column].IsMine)
                 {
                     Console.WriteLine("Boom! You hit a mine. Game over.");
+                    foreach (Field field in Fields)
+                    {
+                        field.IsVisible = true;
+                    }
+                    DisplayFields(Fields);
                     break;
                 }
 
