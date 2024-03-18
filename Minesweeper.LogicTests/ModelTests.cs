@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Minesweeper.Logic;
 using System;
 using System.Collections.Generic;
@@ -70,83 +71,24 @@ namespace Minesweeper.Logic.Tests
             // Act
             gameModel.DisplayFields();
 
-            // Assert
-            int actualFieldCount = gameModel.Fields.Cast<Field>().Count();
-            int expectedFieldCount = difficulty.Size[0].Width * difficulty.Size[0].Height;
-            Assert.AreEqual(expectedFieldCount, actualFieldCount);
-        }
+namespace Minesweeper.Logic.Tests
+{
+    [TestClass()]
+    public class ModelTests
+    {
+        [TestMethod()]
+        public void AllMinesVisibleTest()
+        {/*
+            Assert.Fail();
 
-        [Test]
-        public void GetDisplayChar_ReturnsCorrectCharForMine()
-        {
-            // Arrange
-            var difficulty = new DifficultyEasy();
-            var gameModel = new GameModel(difficulty);
-            var mineField = new Field { IsMine = true };
+            //ARANGE
+            GameModel.Size
 
-            // Act
-            char displayChar = gameModel.GetDisplayChar(mineField);
+            //ACT
+            Program.DisplayField();
 
-            // Assert
-            Assert.AreEqual('*', displayChar);
-        }
-        [Test]
-        public void GetDisplayChar_ReturnsCorrectCharForVisibleField()
-        {
-            // Arrange
-            var difficulty = new DifficultyEasy();
-            var gameModel = new GameModel(difficulty);
-            var visibleField = new Field { IsVisible = true };
-
-            // Act
-            char displayChar = gameModel.GetDisplayChar(visibleField);
-
-            // Assert
-            Assert.AreEqual(' ', displayChar);
-        }
-
-        [Test]
-        public void GetDisplayChar_ReturnsCorrectCharForInvisibleField()
-        {
-            // Arrange
-            var difficulty = new DifficultyEasy();
-            var gameModel = new GameModel(difficulty);
-            var invisibleField = new Field { IsVisible = false };
-
-            // Act
-            char displayChar = gameModel.GetDisplayChar(invisibleField);
-
-            // Assert
-            Assert.AreEqual('.', displayChar);
-        }
-
-        [Test]
-        public void AdjacentMines_ReturnsCorrectCount()
-        {
-            // Arrange
-            var difficulty = new DifficultyEasy();
-            var gameModel = new GameModel(difficulty);
-            gameModel.Fields[0, 0].IsMine = true;
-            gameModel.Fields[0, 1].IsMine = true;
-            gameModel.Fields[1, 0].IsMine = true;
-
-            // Act
-            int adjacentMines = gameModel.AdjacentMines(1, 1);
-
-            // Assert
-            Assert.AreEqual(3, adjacentMines);
-        }
-        [Test]
-        public void Difficulty_SetCorrectly()
-        {
-            // Arrange
-            var difficulty = new DifficultyEasy();
-
-            // Act
-            var gameModel = new GameModel(difficulty);
-
-            // Assert
-            Assert.AreEqual(difficulty, gameModel.Difficulty);
+            //ASSERT
+            //Spielzustand prüfen.*/
         }
     }
-}*/
+}

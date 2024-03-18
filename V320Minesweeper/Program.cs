@@ -1,6 +1,7 @@
 ﻿using Minesweeper.Logic;
 using System;
 using System.Data;
+using System.Data.Common;
 using System.Xml.Schema;
 using Logic = Minesweeper.Logic;
 
@@ -52,8 +53,7 @@ namespace V320Minesweeper
 
             Logic.GameModel gameModel = new Logic.GameModel(difficulty);
 
-            Console.WriteLine(difficulty.MineCount);
-            Console.WriteLine(difficulty.Size[0]);
+            Console.WriteLine();
 
             /* TEMPORARY TESTING MINE PLACEMENT */
             Field[,] Fields = new Field[difficulty.Size[0].Width, difficulty.Size[0].Height];
@@ -102,7 +102,7 @@ namespace V320Minesweeper
                 DisplayFields(Fields);
 
                 Console.Write("Enter your move (format: A1, B2, etc.) or type 'undo' to undo the last move: ");
-                string move = Console.ReadLine();
+                string move = Console.ReadLine().ToLower();
 
                 // Check if the user wants to undo the last move
                 if (move.ToLower() == "undo")
@@ -125,8 +125,15 @@ namespace V320Minesweeper
                 }
 
                 // Convert the move into coordinates
-                int row = move[0] - 'A';
-                int column = int.Parse(move.Substring(1)) - 1;
+
+                if (move.Length < 2 || !char.IsLetter(move[0]) || !int.TryParse(move.Substring(1), out int column))
+                {
+                    Console.WriteLine("Invalid move. Please enter a valid coordinate.");
+                    continue;
+                }
+
+                int row = move[0] - 'a';
+                column = int.Parse(move.Substring(1)) - 1;
 
                 if (row < 0 || row >= Fields.GetLength(0) || column < 0 || column >= Fields.GetLength(1))
                 {
@@ -138,6 +145,11 @@ namespace V320Minesweeper
                 if (Fields[row, column].IsMine)
                 {
                     Console.WriteLine("Boom! You hit a mine. Game over.");
+                    foreach (Field field in Fields)
+                    {
+                        field.IsVisible = true;
+                    }
+                    DisplayFields(Fields);
                     break;
                 }
 
