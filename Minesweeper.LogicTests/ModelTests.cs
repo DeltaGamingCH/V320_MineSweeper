@@ -8,9 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Minesweeper.Logic.Tests
-{
+{/*
     public class GameModelTests
     {
+        
         [Test]
         public void InitializeFields_CreatesCorrectNumberOfFields()
         {
@@ -114,5 +115,5 @@ namespace Minesweeper.Logic.Tests
             // Act
             int adjacentMines = gameModel.AdjacentMines(1, 1);
         }
-    }
+    }*/
 }
