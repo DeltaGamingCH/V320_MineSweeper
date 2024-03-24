@@ -8,112 +8,180 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Minesweeper.Logic.Tests
-{/*
+{
+    [TestClass]
     public class GameModelTests
     {
-        
-        [Test]
-        public void InitializeFields_CreatesCorrectNumberOfFields()
+        private StringWriter _stringWriter;
+        private StringReader _stringReader;
+        private GameModel _gameModel;
+        private Field[,] _fields;
+
+
+        [TestInitialize]
+        public void TestInitialize()
         {
-            // Arrange
-            var difficulty = new DifficultyEasy();
-            var gameModel = new GameModel(difficulty);
-            // Act
-            gameModel.InitializeFields();
-            // Assert
-            int actualFieldCount = gameModel.Fields.Cast<Field>().Count();
-            int expectedFieldCount = difficulty.Size[0].Width * difficulty.Size[0].Height;
-            Assert.AreEqual(expectedFieldCount, actualFieldCount);
+            _stringWriter = new StringWriter();
+            Console.SetOut(_stringWriter);
+            IGameDifficulty difficulty = new DifficultyEasy();
+            _gameModel = new GameModel(difficulty);
         }
-        [Test]
-        public void IsGameWon_ReturnsFalseWhenGameIsNotWon()
+
+        [TestMethod]
+        public void DoTurn_InvalidMove_ShouldPrintErrorMessage()
         {
             // Arrange
-            var difficulty = new DifficultyEasy();
-            var gameModel = new GameModel(difficulty);
+            _stringReader = new StringReader("Z9\n");
+            Console.SetIn(_stringReader);
+
             // Act
-            bool isGameWon = gameModel.IsGameWon();
+            _gameModel.DoTurn();
+
             // Assert
-            Assert.IsFalse(isGameWon);
+            Assert.IsTrue(_stringWriter.ToString().Contains("Invalid move. Please enter a valid coordinate."));
         }
-        [Test]
-        public void IsGameWon_ReturnsTrueWhenGameIsWon()
+        [TestMethod]
+        public void IsGameWon_AllNonMineFieldsVisible_ReturnsTrue()
         {
             // Arrange
-            var difficulty = new DifficultyEasy();
-            var gameModel = new GameModel(difficulty);
-            foreach (var field in gameModel.Fields)
+            Field[,] fields = new Field[3, 3]
             {
-                if (!field.IsMine)
+        { new Field { IsMine = false, IsVisible = true }, new Field { IsMine = true, IsVisible = false }, new Field { IsMine = false, IsVisible = true } },
+        { new Field { IsMine = false, IsVisible = true }, new Field { IsMine = false, IsVisible = true }, new Field { IsMine = true, IsVisible = false } },
+        { new Field { IsMine = false, IsVisible = true }, new Field { IsMine = false, IsVisible = true }, new Field { IsMine = false, IsVisible = true } }
+            };
+            IGameDifficulty difficulty = new DifficultyEasy();
+            GameModel gameModel = new GameModel(difficulty);
+
+            // Act
+            bool result = gameModel.IsGameWon(fields);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+        [TestMethod]
+        public void DoTurn_HitMine_ShouldEndGame()
+        {
+            // Arrange
+            _stringReader = new StringReader("A1\n");
+            Console.SetIn(_stringReader);
+            _gameModel._fields[0, 0].IsMine = true; // Assume A1 is a mine
+
+            // Act
+            _gameModel.DoTurn();
+
+            // Assert
+            Assert.IsTrue(_stringWriter.ToString().Contains("Boom! You hit a mine. Game over."));
+        }
+        [TestMethod]
+        public void DoTurn_WinGame_ShouldPrintWinMessage()
+        {
+            // Arrange
+            _stringReader = new StringReader("A1\n");
+            Console.SetIn(_stringReader);
+            _gameModel._fields[0, 0].IsMine = false; // Assume A1 is not a mine
+            _gameModel._fields[0, 1].IsMine = true; // Assume A2 is a mine
+            _gameModel._fields[0, 0].IsVisible = true; // Assume A1 is already revealed
+
+            // Act
+            _gameModel.DoTurn();
+
+            // Assert
+            Assert.IsTrue(_stringWriter.ToString().Contains("Congratulations! You've cleared all the mines. You won!"));
+        }
+        [TestMethod]
+        public void DoTurn_UndoMove_ShouldRestorePreviousState()
+        {
+            // Arrange
+            _stringReader = new StringReader("A1\nundo\n");
+            Console.SetIn(_stringReader);
+            _gameModel._fields[0, 0].IsMine = false; // Assume A1 is not a mine
+
+            // Act
+            _gameModel.DoTurn();
+
+            // Assert
+            Assert.IsFalse(_gameModel._fields[0, 0].IsVisible); // The field should not be visible after undoing the move
+        }
+        [TestMethod]
+        public void TestAdjacentMines_NoMines_ReturnsZero()
+        {
+            // Arrange
+            Field[,] fields = new Field[3, 3]
+            {
+        { new Field { IsMine = false }, new Field { IsMine = false }, new Field { IsMine = false } },
+        { new Field { IsMine = false }, new Field { IsMine = false }, new Field { IsMine = false } },
+        { new Field { IsMine = false }, new Field { IsMine = false }, new Field { IsMine = false } }
+            };
+            IGameDifficulty difficulty = new DifficultyEasy();
+            GameModel gameModel = new GameModel(difficulty);
+
+            // Act
+            int result = gameModel.TestAdjacentMines(fields, 1, 1);
+
+            // Assert
+            Assert.AreEqual(0, result);
+        }
+
+
+        [TestMethod]
+        public void AdjacentMines_AllMines_ReturnsEight()
+        {
+            // Arrange
+            Field[,] fields = new Field[3, 3]
+            {
+                { new Field { IsMine = true }, new Field { IsMine = true }, new Field { IsMine = true } },
+                { new Field { IsMine = true }, new Field { IsMine = true }, new Field { IsMine = true } },
+                { new Field { IsMine = true }, new Field { IsMine = true }, new Field { IsMine = true } }
+            };
+            IGameDifficulty difficulty = new DifficultyEasy();
+            GameModel gameModel = new GameModel(difficulty);
+
+            // Act
+            int result = gameModel.TestAdjacentMines(fields, 1, 1);
+
+            // Assert
+            Assert.AreEqual(8, result);
+        }
+        [TestMethod]
+        public void InitializeFields_FieldsInitialized_NotNull()
+        {
+            // Act
+            _gameModel.InitializeFields();
+
+            // Assert
+            for (int row = 0; row < _gameModel._fields.GetLength(0); row++)
+            {
+                for (int column = 0; column < _gameModel._fields.GetLength(1); column++)
                 {
-                    field.IsVisible = true;
+                    Assert.IsNotNull(_gameModel._fields[row, column]);
                 }
             }
-            // Act
-            bool isGameWon = gameModel.IsGameWon();
-            // Assert
-            Assert.IsTrue(isGameWon);
         }
-        [Test]
-        public void DisplayFields_ShowsCorrectNumberOfFields()
+        [TestMethod]
+        public void DisplayFields_ValidFields_ShouldPrintCorrectly()
         {
             // Arrange
-            var difficulty = new DifficultyEasy();
-            var gameModel = new GameModel(difficulty);
+            Field[,] fields = new Field[3, 3]
+            {
+                { new Field { IsMine = false }, new Field { IsMine = false }, new Field { IsMine = false } },
+                { new Field { IsMine = false }, new Field { IsMine = false }, new Field { IsMine = false } },
+                { new Field { IsMine = false }, new Field { IsMine = false }, new Field { IsMine = false } }
+            };
+
             // Act
-            gameModel.DisplayFields();
+            GameModel.DisplayFields(fields);
+
             // Assert
-            int actualFieldCount = gameModel.Fields.Cast<Field>().Count();
-            int expectedFieldCount = difficulty.Size[0].Width * difficulty.Size[0].Height;
-            Assert.AreEqual(expectedFieldCount, actualFieldCount);
+            string expectedOutput = "   | 1 | 2 | 3 |\n---- ---- ---- ----\nA |   |   |   |\n---- ---- ---- ----\nB |   |   |   |\n---- ---- ---- ----\nC |   |   |   |\n---- ---- ---- ----\n";
+            Assert.AreEqual(expectedOutput, _stringWriter.ToString());
         }
-        [Test]
-        public void GetDisplayChar_ReturnsCorrectCharForMine()
+
+[TestCleanup]
+        public void TestCleanup()
         {
-            // Arrange
-            var difficulty = new DifficultyEasy();
-            var gameModel = new GameModel(difficulty);
-            var mineField = new Field { IsMine = true };
-            // Act
-            char displayChar = gameModel.GetDisplayChar(mineField);
-            // Assert
-            Assert.AreEqual('*', displayChar);
+            _stringWriter.Close();
+            _stringReader.Close();
         }
-        [Test]
-        public void GetDisplayChar_ReturnsCorrectCharForVisibleField()
-        {
-            // Arrange
-            var difficulty = new DifficultyEasy();
-            var gameModel = new GameModel(difficulty);
-            var visibleField = new Field { IsVisible = true };
-            // Act
-            char displayChar = gameModel.GetDisplayChar(visibleField);
-            // Assert
-            Assert.AreEqual(' ', displayChar);
-        }
-        [Test]
-        public void GetDisplayChar_ReturnsCorrectCharForInvisibleField()
-        {
-            // Arrange
-            var difficulty = new DifficultyEasy();
-            var gameModel = new GameModel(difficulty);
-            var invisibleField = new Field { IsVisible = false };
-            // Act
-            char displayChar = gameModel.GetDisplayChar(invisibleField);
-            // Assert
-            Assert.AreEqual('.', displayChar);
-        }
-        [Test]
-        public void AdjacentMines_ReturnsCorrectCount()
-        {
-            // Arrange
-            var difficulty = new DifficultyEasy();
-            var gameModel = new GameModel(difficulty);
-            gameModel.Fields[0, 0].IsMine = true;
-            gameModel.Fields[0, 1].IsMine = true;
-            gameModel.Fields[1, 0].IsMine = true;
-            // Act
-            int adjacentMines = gameModel.AdjacentMines(1, 1);
-        }
-    }*/
+    }
 }

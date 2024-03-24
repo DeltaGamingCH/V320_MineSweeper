@@ -5,7 +5,7 @@ namespace Minesweeper.Logic
 {
     public class GameModel
     {
-        private Field[,] _fields;
+        public Field[,] _fields;
         private IGameDifficulty _difficulty;
         private FieldCaretaker _caretaker;
 
@@ -122,7 +122,7 @@ namespace Minesweeper.Logic
             }
         }
 
-        static bool IsGameWon(Field[,] Fields)
+        public bool IsGameWon(Field[,] Fields)
         {
             if (Fields == null || Fields.Length == 0)
             {
@@ -249,6 +249,10 @@ namespace Minesweeper.Logic
                 }
             }
             return count;
+        }
+        public int TestAdjacentMines(Field[,] Fields, int row, int column)
+        {
+            return AdjacentMines(Fields, row, column);
         }
     }
 }
