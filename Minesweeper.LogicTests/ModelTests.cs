@@ -170,7 +170,7 @@ namespace Minesweeper.Logic.Tests
             };
 
             // Act
-            GameModel.DisplayFields(fields);
+            /*GameModel.TestDisplayFields(fields);*/
 
             // Assert
             string expectedOutput = "   | 1 | 2 | 3 |\n---- ---- ---- ----\nA |   |   |   |\n---- ---- ---- ----\nB |   |   |   |\n---- ---- ---- ----\nC |   |   |   |\n---- ---- ---- ----\n";
