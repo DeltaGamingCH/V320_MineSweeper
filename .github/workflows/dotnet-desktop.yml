@@ -57,7 +57,7 @@ jobs:
 
     env:
       Solution_Name: V320Minesweeper.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
-      Test_Project_Path: Minesweeper.LogicTests\Minesweeper.LogicTests.csproj               # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
+      Test_Project_Path: \Minesweeper.LogicTests\Minesweeper.LogicTests.csproj               # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
 
     steps:
     - name: Checkout
@@ -77,8 +77,7 @@ jobs:
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
-      run: dotnet test ${{ env.Test_Project_Path }}
-  working-directory: V320_MineSweeper\Minesweeper.LogicTests\Minesweeper.LogicTests.csproj
+      run: dotnet test
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
